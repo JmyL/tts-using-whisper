@@ -14,11 +14,6 @@
         overlays = [
           (final: prev: {
 
-            # ffmpeg-full = prev.ffmpeg-full.override {
-            #   enableFdkAac = true;
-            #   enableNonFree = true; # 혹은 nonfree = true;
-            # };
-
             ffmpeg-full = prev.ffmpeg-full.overrideAttrs (old: {
               configureFlags = (old.configureFlags or [ ])
                 ++ [ "--enable-nonfree" "--enable-libfdk-aac" ];

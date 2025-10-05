@@ -65,9 +65,9 @@ def perform_sst(file_path):
 
     with open(file_path, "rb") as audio_file:
         transcription = client.audio.transcriptions.create(
-            model="whisper-1", 
+            model="gpt-4o-transcribe", 
             file=audio_file,
-            # response_format="text"
+            response_format="text"
 
             # TODO: Add language option according to [ISO-639-1](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes)
 
@@ -75,7 +75,7 @@ def perform_sst(file_path):
             # TODO: Add prompt, maximum 224 tokens, should match the audio language
             # prompt="ZyntriQix, Digique Plus, CynapseFive, VortiQore V8, EchoNix Array, OrbitalLink Seven, DigiFractal Matrix, PULSE, RAPT, B.R.I.C.K., Q.U.A.R.T.Z., F.L.I.N.T."
         )
-    return transcription.text
+    return transcription
     
 
 if __name__ == "__main__":
@@ -97,7 +97,7 @@ if __name__ == "__main__":
     print(f"Estimated cost: {cost:.2f} USD")
 
 
-    output_files = split_audio(args.file_path)
+    output_files = split_audio(args.file_path, max_size_mb=13)
 
     if not args.simulate:
         text = ""
